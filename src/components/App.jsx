@@ -11,11 +11,6 @@ export const App = () => {
   const [contacts, setContacts] = useState(INITIAL_STATE);
   const [filter, setFilter] = useState('');
   useEffect(() => {
-
-    const localContacts = load(KEY);
-    if (localContacts) setContacts(localContacts)
-  }, [])
-  useEffect(() => {
     save(KEY, contacts)
   }, [contacts])
   const handleInput = e => {
@@ -26,7 +21,7 @@ export const App = () => {
       .includes(name))
   };
   const contactDelet = id => {
-    setContacts(contacts.filter(contact => contact.id !== id))
+    setContacts((prev) => prev.filter(contact => contact.id !== id))
   };
 
   const handleSubmit = (name, number) => {
@@ -37,7 +32,7 @@ export const App = () => {
     } else {
       setContacts((prev) => {
 
-        return [...prev, { id: userId, name: name, number: number }]
+        return [...prev, { id: userId, name, number }]
       })
 
     }
